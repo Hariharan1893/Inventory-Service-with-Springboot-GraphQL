@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Wireless Mouse",
+    "category": "Electronics",
+    "price": 1299,
+    "stock": 50
+  },
+  {
+    "name": "Mechanical Keyboard",
+    "category": "Electronics",
+    "price": 4999,
+    "stock": 30
+  },
+  {
+    "name": "Smartwatch",
+    "category": "Wearable",
+    "price": 8999,
+    "stock": 25
+  },
+  {
+    "name": "Bluetooth Speaker",
+    "category": "Audio",
+    "price": 2999,
+    "stock": 40
+  },
+  {
+    "name": "Power Bank 20000mAh",
+    "category": "Accessories",
+    "price": 3499,
+    "stock": 60
+  },
+  {
+    "name": "Gaming Headset",
+    "category": "Gaming",
+    "price": 6999,
+    "stock": 20
+  },
+  {
+    "name": "External Hard Drive 1TB",
+    "category": "Storage",
+    "price": 5999,
+    "stock": 35
+  },
+  {
+    "name": "Laptop Cooling Pad",
+    "category": "Accessories",
+    "price": 1999,
+    "stock": 45
+  },
+  {
+    "name": "Portable Projector",
+    "category": "Gadgets",
+    "price": 15999,
+    "stock": 15
+  },
+  {
+    "name": "VR Headset",
+    "category": "Gaming",
+    "price": 12999,
+    "stock": 10
+  }
+]

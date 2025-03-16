@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: GraphQl-Demo
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/inventory_graphql
+    username: root
+    password: Hari@Sql18
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        physical_naming_strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+
+  graphql:
+    enabled: true
+    path: /graphql
+
+server:
+  port: 8080
