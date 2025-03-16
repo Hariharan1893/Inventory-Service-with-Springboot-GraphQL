@@ -16,8 +16,8 @@ This API provides GraphQL-based CRUD operations for managing products, including
 
 ### **1️⃣ Clone the Repository**
 ```sh
- git clone https://github.com/your-repo/graphql-product-api.git
- cd graphql-product-api
+ git clone https://github.com/Hariharan1893/Inventory-Service-with-Springboot-GraphQL.git
+ cd Inventory-Service-with-Springboot-GraphQL
 ```
 
 ### **2️⃣ Build & Run**
@@ -36,24 +36,26 @@ http://localhost:8080/graphql
 ## GraphQL Schema
 
 ```graphql
-type Product {
-    id: Int
-    name: String
-    category: String
-    price: Int
-    stock: Int
+type Product{
+	id: Int,
+	name: String,
+	category: String,
+	price: Int,
+	stock: Int
 }
 
-type Query {
-    getAllProducts(limit: Int, offset: Int): [Product]
-    getProductById(id: Int): Product
+type Query{
+	getAllProducts:[Product]
+	getProductById(id:Int):Product
+	getProductsWithPagination(limit: Int, offset: Int):[Product]
 }
 
 type Mutation {
-    createProduct(name: String, category: String, price: Int, stock: Int): Product
-    updateProduct(id: Int, name: String, category: String, price: Int, stock: Int): Product
-    deleteProduct(id: Int): Boolean
+  createProduct(name: String, category: String, price: Int, stock: Int): Product
+  updateProduct(id: Int, name: String, category: String, price: Int, stock: Int): Product
+  deleteProduct(id: Int): Boolean
 }
+
 ```
 
 ---
@@ -134,98 +136,6 @@ mutation {
     deleteProduct(id: 1)
 }
 ```
-
----
-
-## Backend Implementation
-
-### **1️⃣ Repository Layer (`ProductRepository.java`)**
-```java
-@Repository
-public interface ProductRepository extends JpaRepository<Product, Integer> {
-    @Query(value = "SELECT * FROM product LIMIT :limit OFFSET :offset", nativeQuery = true)
-    List<Product> findProductsWithPagination(@Param("limit") int limit, @Param("offset") int offset);
-}
-```
-
-### **2️⃣ Service Layer (`ProductService.java`)**
-```java
-@Service
-public class ProductService {
-    @Autowired
-    private ProductRepository productRepository;
-
-    public List<Product> getAllProducts(int limit, int offset) {
-        return productRepository.findProductsWithPagination(limit, offset);
-    }
-}
-```
-
-### **3️⃣ Controller Layer (`ProductController.java`)**
-```java
-@GraphQLController
-public class ProductController {
-    @Autowired
-    private ProductService productService;
-
-    @QueryMapping
-    public List<Product> getAllProducts(@Argument int limit, @Argument int offset) {
-        return productService.getAllProducts(limit, offset);
-    }
-}
-```
-
----
-
-## Pagination Approaches
-
-### **1️⃣ Offset-Based Pagination**
-- Uses `LIMIT` and `OFFSET` to fetch a subset of records.
-- Example:
-```sql
-SELECT * FROM product LIMIT 10 OFFSET 20;
-```
-
-### **2️⃣ Cursor-Based Pagination (Future Enhancement)**
-- Uses a **cursor** (e.g., `id` or timestamp) to fetch records after a given point.
-- More efficient than offset-based pagination for large datasets.
-- Example:
-```graphql
-query {
-    getAllProducts(afterCursor: "12345", limit: 10) {
-        id
-        name
-    }
-}
-```
-
----
-
-## Database Setup
-```sql
-CREATE TABLE Product (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    category VARCHAR(100) NOT NULL,
-    price INT NOT NULL,
-    stock INT NOT NULL
-);
-```
-
----
-
-## 📌 Notes
-- **Offset-based pagination** is used for fetching paginated product data.
-- **GraphQL Schema** follows best practices with queries and mutations.
-- **Spring Boot + GraphQL** is used for seamless API management.
-
----
-
-## 📌 Future Enhancements
-- Implement **cursor-based pagination** for better performance.
-- Add **search and filtering** features.
-- Introduce **sorting options**.
-
 ---
 
 ## 📞 Contact
